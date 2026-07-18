@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bharat Ghar Docs - Rs 62</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+.watermark-strong{
+  position:absolute; inset:0; z-index:10; pointer-events:none;
+  background-image: repeating-linear-gradient( -45deg, transparent 0 120px, rgba(255,0,0,0.03) 120px 240px);
+}
+.watermark-text{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-30deg);
+  font-size:22px; font-weight:900; color:rgba(255,0,0,0.18); 
+  border:4px solid rgba(255,0,0,0.18); padding:15px 30px; white-space:nowrap;
+  text-transform:uppercase; letter-spacing:2px;
+}
+.watermark-repeat{
+  position:absolute; inset:0; overflow:hidden; opacity:0.12;
+  font-size:14px; font-weight:800; color:red; line-height:80px;
+  word-spacing:30px; pointer-events:none; user-select:none;
+  transform:rotate(-20deg) scale(1.5);
+  white-space:pre-wrap;
+}
+.blur-lock{filter: blur(5px) grayscale(0.3); user-select:none; -webkit-user-select:none;}
+.no-select{user-select:none; -webkit-user-select:none; -webkit-touch-callout:none;}
+</style>
+</head>
+<body class="bg-zinc-50 min-h-screen no-select">
+<div class="bg-[#FF6B00] text-white px-4 py-3 flex justify-between items-center">
+<div><div class="font-black text-lg tracking-wide">BHARAT GHAR DOCS</div><div class="text-[11px] opacity-90">Free Rent & Society Documents • UPI: bhagwatkunal1@oksbi • Rs 62</div></div>
+<div class="bg-white text-[#FF6B00] px-3 py-1 rounded-full text-xs font-black">Rs 62 UNLOCK</div>
+</div>
+
+<div class="max-w-6xl mx-auto grid md:grid-cols-[280px_1fr] gap-4 p-4">
+<div class="bg-white rounded-2xl border p-3 h-fit">
+<div class="text-[10px] font-black tracking-widest text-zinc-500 px-2 py-2">SELECT DOCUMENT</div>
+<div id="docList" class="space-y-2"></div>
+<div class="mt-4 p-3 bg-zinc-900 text-white rounded-xl text-[11px] leading-4">⚠️ PAN required ONLY if rent ≥ Rs 50k/month. Anti-screenshot watermark on all previews.</div>
+</div>
+
+<div class="bg-white rounded-2xl border overflow-hidden">
+<!-- FORM -->
+<div id="step-form" class="p-5">
+<h2 id="formTitle" class="font-black text-lg">HRA Rent Receipt</h2>
+<p class="text-xs text-zinc-500 mt-1">All fields empty • Fill to preview</p>
+<div class="grid sm:grid-cols-2 gap-4 mt-5">
+<div><label class="text-xs font-bold">Tenant Name *</label><input id="tenantName" class="mt-1 w-full border rounded-xl px-3 py-2.5 text-sm" /></div>
+<div><label class="text-xs font-bold">Landlord Name *</label><input id="landlordName" class="mt-1 w-full border rounded-xl px-3 py-2.5 text-sm" /></div>
+<div class="sm:col-span-2"><label class="text-xs font-bold">Property Address *</label><textarea id="address" class="mt-1 w-full border rounded-xl px-3 py-2.5 text-sm" rows="2"></textarea></div>
+<div><label class="text-xs font-bold">City *</label><input id="city" class="mt-1 w-full border rounded-xl px-3 py-2.5 text-sm" placeholder="Thane" /></div>
+<div><label class="text-xs font-bold">Monthly Rent Rs *</label><input id="rent" type="number" oninput="updatePan()" class="mt-1 w-full border rounded-xl px-3 py-2.5 text-sm" /></div>
+<div><label class="text-xs font-bold">From Date *</label><input id="fromDate" type="date" class="mt-1 w-full border rounded-xl px-3 py-2.5 text-sm" /></div>
+<div><label class="text-xs font-bold">To Date *</label><input id="toDate" type="date" class="mt-1 w-full border rounded-xl px-3 py-2.5 text-sm" /></div>
+<div><label id="panLabel" class="text-xs font-bold">Landlord PAN (Optional)</label><input id="pan" class="mt-1 w-full border rounded-xl px-3 py-2.5 text-sm uppercase" /></div>
+</div>
+<button onclick="generatePreview()" class="mt-6 w-full h-12 bg-zinc-900 text-white rounded-full font-bold hover:bg-black">Generate Preview →</button>
+</div>
+
+<!-- PREVIEW -->
+<div id="step-preview" class="hidden">
+<div class="p-5 flex justify-between items-center border-b bg-amber-50"><h3 class="font-bold">Preview - Watermarked Draft</h3><button onclick="showForm()" class="text-xs underline font-bold">← Edit</button></div>
+<div class="p-5">
+<div class="relative border-2 border-red-200 rounded-2xl p-6 bg-[#FFFBF5] min-h-[380px] overflow-hidden no-select">
+<div id="previewContent" class="text-sm leading-6 whitespace-pre-wrap blur-lock"></div>
+<div class="watermark-strong"></div>
+<div class="watermark-repeat">PAY RS 62 bhagwatkunal1@oksbi PAY RS 62 bhagwatkunal1@oksbi PAY RS 62 bhagwatkunal1@oksbi PAY RS 62 bhagwatkunal1@oksbi PAY RS 62 bhagwatkunal1@oksbi PAY RS 62 bhagwatkunal1@oksbi PAY RS 62 bhagwatkunal1@oksbi PAY RS 62 bhagwatkunal1@oksbi PAY RS 62 bhagwatkunal1@oksbi PAY RS 62 bhagwatkunal1@oksbi</div>
+<div class="watermark-text">DRAFT - PAY RS 62 TO UNLOCK</div>
+<div class="absolute bottom-2 left-0 right-0 text-center text-[10px] font-black text-red-600 bg-red-50 py-1">⚠️ SCREENSHOT BLOCKED - ORIGINAL WITHOUT WATERMARK AFTER PAYMENT</div>
+</div>
+<button onclick="goToPayment()" class="mt-4 w-full h-12 bg-[#5f259f] text-white rounded-full font-bold">Unlock Original PDF for Rs 62 →</button>
+<div class="mt-2 text-[11px] text-center text-red-600 font-bold">No free download • Screenshots useless due to watermark</div>
+</div>
+</div>
+
+<!-- PAYMENT -->
+<div id="step-payment" class="hidden">
+<div class="p-5 border-b flex justify-between items-center bg-zinc-900 text-white"><h3 class="font-bold">UPI Payment • Rs 62 • bhagwatkunal1@oksbi</h3><button onclick="showForm()" class="text-xs underline">← Edit</button></div>
+<div class="p-6 grid md:grid-cols-2 gap-6">
+<div>
+<div class="bg-white border-2 border-zinc-900 rounded-[20px] p-4 flex flex-col items-center">
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=bhagwatkunal1@oksbi%26pn%3DBharatGharDocs%26am%3D62%26cu%3DINR" class="w-[220px] h-[220px] rounded-xl border-2" />
+<div class="mt-3 font-black text-xl">Scan & Pay Rs. 62</div>
+<div class="mt-2 bg-zinc-900 text-white px-4 py-1.5 rounded-full text-sm font-black">UPI ID: bhagwatkunal1@oksbi</div>
+<div class="mt-2 text-xs">For: <b id="payDocName">HRA Receipt</b></div>
+</div>
+<a href="upi://pay?pa=bhagwatkunal1@oksbi&pn=BharatGharDocs&am=62&cu=INR" class="mt-4 w-full h-12 bg-[#5f259f] text-white rounded-full font-bold grid place-items-center">Pay Rs 62 via UPI App ↗</a>
+<button onclick="paidAndDownload()" class="mt-3 w-full h-12 bg-zinc-900 text-white rounded-full font-black">I have paid, Download Original PDF</button>
+<div class="mt-3 text-[11px] text-center text-zinc-600">After payment, clean PDF without watermark downloads. Previews are watermarked to block screenshots.</div>
+</div>
+<div class="bg-zinc-900 text-white rounded-2xl p-5 relative overflow-hidden no-select">
+<div class="flex justify-between items-center"><div class="text-[11px] text-white/60 font-bold tracking-widest">ORIGINAL PDF PREVIEW - STILL WATERMARKED</div><div class="bg-red-600 text-white text-[9px] px-2 py-1 rounded-full font-black">ANTI-SCREENSHOT</div></div>
+<div class="mt-4 bg-white text-black rounded-2xl p-5 min-h-[380px] relative overflow-hidden">
+<div id="originalPreview" class="text-[11px] font-mono leading-5 whitespace-pre-wrap blur-lock"></div>
+<div class="watermark-strong"></div>
+<div class="watermark-repeat">ORIGINAL PREVIEW Rs62 bhagwatkunal1@oksbi DO NOT SCREENSHOT ORIGINAL PREVIEW Rs62 bhagwatkunal1@oksbi ORIGINAL PREVIEW Rs62 bhagwatkunal1@oksbi DO NOT SCREENSHOT</div>
+<div class="watermark-text" style="color:rgba(255,0,0,0.22)">PAY Rs 62 - ORIGINAL LOCKED</div>
+</div>
+<div class="mt-3 text-[11px] text-white/60 text-center">↑ This preview is also watermarked. Clean file downloads only after payment. Screenshot = waste.</div>
+<div class="mt-3 bg-white/10 rounded-xl p-3 text-[11px]">✅ After Rs 62: No watermark, proper A4 margins, ready for society/office.</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+let isPaid=false;
+let selectedDoc='hra';
+const docs=[
+{id:'hra', title:'HRA Rent Receipt', desc:'Tax exemption'},
+{id:'rent_agreement', title:'Rent Agreement 11 Months', desc:'Society & police'},
+{id:'maintenance', title:'Maintenance Receipt', desc:'Society charges'},
+{id:'noc_passport', title:'NOC for Passport', desc:'Society NOC'},
+{id:'noc_tenant', title:'Tenant Police Verification', desc:'Police NOC'},
+{id:'increment', title:'Rent Increment Letter', desc:'Hike notice'},
+];
+function renderDocList(){
+ document.getElementById('docList').innerHTML=docs.map(d=>`<button onclick="selectDoc('${d.id}')" class="w-full text-left px-3 py-3 rounded-xl border ${selectedDoc===d.id?'bg-zinc-900 text-white border-zinc-900':'bg-white hover:bg-zinc-50'}"><div class="font-bold text-[13px]">${d.title}</div><div class="text-[11px] ${selectedDoc===d.id?'text-white/70':'text-zinc-500'}">${d.desc}</div></button>`).join('');
+}
+function selectDoc(id){selectedDoc=id; document.getElementById('formTitle').innerText=docs.find(x=>x.id===id).title; document.getElementById('payDocName').innerText=docs.find(x=>x.id===id).title; renderDocList(); showForm();}
+function updatePan(){
+ let rent=parseInt(document.getElementById('rent').value)||0;
+ let label=document.getElementById('panLabel');
+ let inp=document.getElementById('pan');
+ if(rent>=50000){label.innerHTML='Landlord PAN <span class="text-red-600">* Required (≥50k)</span>'; label.className='text-xs font-bold text-red-600'; inp.classList.add('border-red-400');}
+ else{label.innerHTML='Landlord PAN <span class="text-zinc-500">(Optional - <50k)</span>'; label.className='text-xs font-bold'; inp.classList.remove('border-red-400');}
+}
+function showForm(){document.getElementById('step-form').classList.remove('hidden'); document.getElementById('step-preview').classList.add('hidden'); document.getElementById('step-payment').classList.add('hidden');}
+function validateForm(){
+ let t=document.getElementById('tenantName').value.trim(), l=document.getElementById('landlordName').value.trim(), a=document.getElementById('address').value.trim(), c=document.getElementById('city').value.trim(), r=document.getElementById('rent').value.trim(), f=document.getElementById('fromDate').value, to=document.getElementById('toDate').value, pan=document.getElementById('pan').value.trim();
+ let rn=parseInt(r)||0;
+ if(!t||!l||!a||!c||!r||!f||!to){alert('Fill all required fields'); return false;}
+ if(rn>=50000 && !pan){alert('PAN mandatory when rent ≥ Rs 50,000'); return false;}
+ return true;
+}
+function getText(isOriginal){
+ let t=document.getElementById('tenantName').value||'[Tenant]', l=document.getElementById('landlordName').value||'[Landlord]', a=document.getElementById('address').value||'[Address]', c=document.getElementById('city').value||'[City]', r=document.getElementById('rent').value||'[Rent]', f=document.getElementById('fromDate').value||'[From]', to=document.getElementById('toDate').value||'[To]', pan=document.getElementById('pan').value||'Not Provided (<50k)', title=docs.find(x=>x.id===selectedDoc).title;
+ return `${title.toUpperCase()}\n\nTenant: ${t}\nLandlord: ${l}\nAddress: ${a}, ${c}\nMonthly Rent: Rs ${r}\nPeriod: ${f} to ${to}\nLandlord PAN: ${pan}\n\nThis document is issued for official purpose.\n\nGenerated by Bharat Ghar Docs\ntoolstree.github.io/Bharat-Ghar/\nUPI: bhagwatkunal1@oksbi`;
+}
+function generatePreview(){
+ if(!validateForm()) return;
+ document.getElementById('previewContent').innerText=getText(false);
+ document.getElementById('originalPreview').innerText=getText(true);
+ document.getElementById('step-form').classList.add('hidden');
+ document.getElementById('step-preview').classList.remove('hidden');
+ document.getElementById('step-payment').classList.add('hidden');
+}
+function goToPayment(){
+ document.getElementById('step-form').classList.add('hidden');
+ document.getElementById('step-preview').classList.add('hidden');
+ document.getElementById('step-payment').classList.remove('hidden');
+}
+function paidAndDownload(){isPaid=true; downloadPDF();}
+function downloadPDF(){
+ if(!isPaid){alert('Complete Rs 62 payment first'); goToPayment(); return;}
+ let text=getText(true);
+ // create clean PDF via print window
+ let win=window.open('', '_blank');
+ win.document.write('<html><head><title>Original - Bharat Ghar</title><style>body{font-family:monospace; padding:40px; line-height:1.6} .header{border-bottom:2px solid #000; padding-bottom:10px; margin-bottom:20px;}</style></head><body><div class="header"><b>BHARAT GHAR DOCS - ORIGINAL (No Watermark)</b><br>UPI Paid: bhagwatkunal1@oksbi | Rs 62</div><pre style="white-space:pre-wrap; font-size:13px;">'+text+'</pre><br><br><div style="margin-top:40px;">Tenant Sign: _________________ &nbsp;&nbsp; Landlord Sign: _________________</div></body></html>');
+ win.document.close();
+ win.print();
+ // also download txt as fallback
+ let blob=new Blob([text], {type:'text/plain'});
+ let url=URL.createObjectURL(blob);
+ let a=document.createElement('a'); a.href=url; a.download=selectedDoc+'_ORIGINAL_CLEAN.pdf.txt'; a.click();
+ URL.revokeObjectURL(url);
+ alert('Clean Original Downloaded! No watermark. Thank you for paying Rs 62 to bhagwatkunal1@oksbi');
+ isPaid=false; showForm(); clearAll();
+}
+function clearAll(){['tenantName','landlordName','address','city','rent','fromDate','toDate','pan'].forEach(id=>document.getElementById(id).value=''); updatePan();}
+renderDocList(); updatePan(); clearAll();
+document.addEventListener('contextmenu', e=>e.preventDefault());
+document.addEventListener('keydown', e=>{if(e.key==='PrintScreen' || (e.ctrlKey && (e.key==='p' || e.key==='s'))){e.preventDefault(); alert('Screenshot/Print blocked - Pay Rs 62 for clean PDF');}});
+</script>
+</body>
+</html>
