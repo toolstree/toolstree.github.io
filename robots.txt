@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://toolstree.github.io/sitemap.xml
